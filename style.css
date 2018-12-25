@@ -1,3 +1,78 @@
-h1 {
-    color: grey;
-}
+
+        body {
+            background: #fdfdfd;
+            font-family: 'Nanum Myeongjo', Arial, Helvetica, sans-serif;
+            color: rgb(120, 120, 120);
+            padding: 4rem;
+            margin-bottom: calc(8rem * 0.4125 + 2rem);
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1, h2 {
+            margin-top: 1rem;
+        }
+        p {
+            line-height: 1.5;
+        }
+        ul {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+        li {
+            line-height: 1.5;
+        }
+        .right-text {
+            text-align: right;
+        }
+        a {
+            color: inherit;
+            text-decoration: inherit;
+            cursor: pointer;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .logo-box {
+            text-align: center;
+            position: fixed;
+            bottom: 1rem;
+            left: 0;
+            right: 0;
+            margin: auto;
+            background-image: url(logo.svg);
+            width: 8rem;
+            height: calc(8rem * 0.4125);
+        }
+        .your-wirte input {
+            border: none;
+            border-bottom: 1px solid rgba(160, 160, 160, 1);
+            height: 1rem;
+            width: 10rem;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            padding-bottom: 0.5rem;
+            outline: none;
+            font-size: 1rem;
+            color: rgb(120, 120, 120);
+        }
+        li.your-wirte:focus-within:after {
+            content: '(and press Enter)';
+            display: inline-table;
+            color: rgb(160,160,160);
+        }
+        .footer {
+            background-color: white;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            text-align: center;
+            height: calc(8rem * 0.4125 + 1rem);
+            border-top: 1px solid rgba(244, 244, 244, 1);
+        }
+        section {
+            display: none;
+        }
+    
