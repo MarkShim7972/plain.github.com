@@ -45,7 +45,7 @@
             height: calc(8rem * 0.4125);
         }
         
-        #top-logo {
+        .top-logo {
             text-align: left;
             position: fixed;
             border: 100px;
