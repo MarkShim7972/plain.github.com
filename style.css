@@ -44,6 +44,19 @@
             width: 8rem;
             height: calc(8rem * 0.4125);
         }
+        
+        .top-logo {
+            text-align: left;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            background-image: url(logo.svg);
+            width: 8rem;
+            height: calc(8rem * 0.4125);
+        }
+
         .your-wirte input {
             border: none;
             border-bottom: 1px solid rgba(160, 160, 160, 1);
@@ -77,6 +90,6 @@
         }
     
         #main {
-            padding: 0px 0px 300px 300px;
+            margin: auto;
             font-family: sans-serif;
         }
