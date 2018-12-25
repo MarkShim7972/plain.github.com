@@ -1,16 +1,105 @@
 <!DOCTYPE HTML>  
 <html>  
-  
-<head> 
-    
-    <meta charset="utf-8">  
-    <meta name="viewport" content="width=640, maximum-scale=1.0, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Plain.network</title>
-    <script src="javascript.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo" rel="stylesheet"> 
-    <link rel="stylesheet" type="text/css" href="style.css">
-</head> 
+        <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=640, maximum-scale=1.0, initial-scale=1.0">
+                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                <title>Plain.Network</title>
+                <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo" rel="stylesheet">
+                <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+                <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+                <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+                <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+                <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+                <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+                <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+                <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+                <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+                <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+                <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+                <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+                <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+                <link rel="manifest" href="/manifest.json">
+                <meta name="msapplication-TileColor" content="#ffffff">
+                <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+                <meta name="theme-color" content="#ffffff">
+                >
+            <script type="text/javascript">// Promises 
+            var _eid_promises = {}; 
+            // Turn the incoming message from extension 
+            // into pending Promise resolving 
+            window.addEventListener("message", function(event) { 
+                if(event.source !== window) return; 
+                if(event.data.src && (event.data.src === "background.js")) { 
+                    console.log("Page received: "); 
+                    console.log(event.data); 
+                    // Get the promise 
+                    if(event.data.nonce) { 
+                        var p = _eid_promises[event.data.nonce]; 
+                        // resolve 
+                        if(event.data.result === "ok") { 
+                            if(event.data.signature !== undefined) { 
+                                p.resolve({hex: event.data.signature}); 
+                            } else if(event.data.version !== undefined) { 
+                                p.resolve(event.data.extension + "/" + event.data.version); 
+                            } else if(event.data.cert !== undefined) { 
+                                p.resolve({hex: event.data.cert}); 
+                            } else { 
+                                console.log("No idea how to handle message"); 
+                                console.log(event.data); 
+                            } 
+                        } else { 
+                            // reject 
+                            p.reject(new Error(event.data.result)); 
+                        } 
+                        delete _eid_promises[event.data.nonce]; 
+                    } else { 
+                        console.log("No nonce in event msg"); 
+                    } 
+                } 
+            }, false); 
+             
+             
+            function TokenSigning() { 
+                function nonce() { 
+                    var val = ""; 
+                    var hex = "abcdefghijklmnopqrstuvwxyz0123456789"; 
+                    for(var i = 0; i < 16; i++) val += hex.charAt(Math.floor(Math.random() * hex.length)); 
+                    return val; 
+                } 
+             
+                function messagePromise(msg) { 
+                    return new Promise(function(resolve, reject) { 
+                        // amend with necessary metadata 
+                        msg["nonce"] = nonce(); 
+                        msg["src"] = "page.js"; 
+                        // send message 
+                        window.postMessage(msg, "*"); 
+                        // and store promise callbacks 
+                        _eid_promises[msg.nonce] = { 
+                            resolve: resolve, 
+                            reject: reject 
+                        }; 
+                    }); 
+                } 
+                this.getCertificate = function(options) { 
+                    var msg = {type: "CERT", lang: options.lang, filter: options.filter}; 
+                    console.log("getCertificate()"); 
+                    return messagePromise(msg); 
+                }; 
+                this.sign = function(cert, hash, options) { 
+                    var msg = {type: "SIGN", cert: cert.hex, hash: hash.hex, hashtype: hash.type, lang: options.lang, info: options.info}; 
+                    console.log("sign()"); 
+                    return messagePromise(msg); 
+                }; 
+                this.getVersion = function() { 
+                    console.log("getVersion()"); 
+                    return messagePromise({ 
+                        type: "VERSION" 
+                    }); 
+                }; 
+            }</script></head>
+
 
 <body>
         
@@ -20,7 +109,7 @@
     </div>
 
   <div class = "footer">
-    <img src ="./plain logo.png" class= "logo-box">
+    
   </div>
     
 
