@@ -2,7 +2,7 @@
         body {
             background: #fdfdfd;
             font-family: 'Nanum Myeongjo', Arial, Helvetica, sans-serif;
-            color: rgb(100, 20,30 );
+            color: rgb(160,160,160);
             padding: 4rem;
             margin-bottom: calc(8rem * 0.4125 + 2rem);
         }
