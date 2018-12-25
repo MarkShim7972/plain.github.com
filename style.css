@@ -48,6 +48,7 @@
         .top-logo {
             text-align: left;
             position: fixed;
+            border: 100px;
             margin: auto;
         }
 
